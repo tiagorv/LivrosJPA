@@ -19,6 +19,28 @@ public class Livro {
     @JoinColumn(name = "id_tipo")
     private Tipo tipo;
 
+    @Column(name = "ano_publicacao")
+    private Integer anoPublicacao;
+
+    public Livro(){
+
+    }
+
+    public Livro(String titulo, String autor, Tipo tipo, Integer anoPublicacao) {
+        this.titulo = titulo;
+        this.autor = autor;
+        this.tipo = tipo;
+        this.anoPublicacao = anoPublicacao;
+    }
+
+    public Integer getAnoPublicacao() {
+        return anoPublicacao;
+    }
+
+    public void setAnoPublicacao(Integer anoPublicacao) {
+        this.anoPublicacao = anoPublicacao;
+    }
+
     public Integer getId() {
         return id;
     }
@@ -58,6 +80,7 @@ public class Livro {
                 ", titulo='" + titulo + '\'' +
                 ", autor='" + autor + '\'' +
                 ", tipo=" + tipo +
+                ", anoPublicacao=" + anoPublicacao +
                 '}';
     }
 }

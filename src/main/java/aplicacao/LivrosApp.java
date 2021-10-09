@@ -6,6 +6,8 @@ import modelo.Tipo;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
+import java.util.List;
 
 public class LivrosApp {
     public static void main(String[] args) {
@@ -15,50 +17,40 @@ public class LivrosApp {
         //Cria um entityManager, que vai persistir os objetos marcados como @entity
         EntityManager gerenciadorEntidade = fabricaGerenciadorEntidades.createEntityManager();
 
-        //Inserção de dados
-        /*Tipo tipo1 = new Tipo();
-        tipo1.setDescricao("Romance");
+        /*Query minhaQuery = gerenciadorEntidade.createQuery("select l from Livro l");
+        List<Livro> meusLivros = minhaQuery.getResultList();
+        meusLivros.forEach(livro -> System.out.println(livro));*/
 
-        Tipo tipo2 = new Tipo();
-        tipo2.setDescricao("Historia");
+        /*Query minhaQuery = gerenciadorEntidade.createQuery("select JJJ.titulo from Livro JJJ");
+        List<String> meusTitulos = minhaQuery.getResultList();
+        meusTitulos.forEach(titulo -> System.out.println(titulo));*/
 
-        Tipo tipo3 = new Tipo();
-        tipo3.setDescricao("Biografia");
+        /*Query minhaQuery = gerenciadorEntidade.createQuery("select l.anoPublicacao from Livro l");
+        List<Integer> anosPublicacao = minhaQuery.getResultList();
+        anosPublicacao.forEach(anoPub -> System.out.println(anoPub));*/
 
-        gerenciadorEntidade.getTransaction().begin();
-        gerenciadorEntidade.persist(tipo1);
-        gerenciadorEntidade.persist(tipo2);
-        gerenciadorEntidade.persist(tipo3);
-        gerenciadorEntidade.getTransaction().commit();
-*/
+        /*Query minhaQuery = gerenciadorEntidade.createQuery("select l from Livro l where l.anoPublicacao >= 1997");
+        List<Livro> meusLivros = minhaQuery.getResultList();
+        meusLivros.forEach(livro -> System.out.println(livro));*/
 
-        //Selecionar no banco de dados
-        /*Tipo tipoNoBanco = gerenciadorEntidade.find(Tipo.class, 4);
-        System.out.println(tipoNoBanco);*/
+        /*Query minhaQuery = gerenciadorEntidade.createQuery("select XX from Livro XX where XX.tipo.id = 1");
+        List<Livro> meusLivros = minhaQuery.getResultList();
+        meusLivros.forEach(livroQualquer -> System.out.println(livroQualquer));*/
 
-/*        Tipo tipoAtualizar = gerenciadorEntidade.find(Tipo.class, 1);
-        tipoAtualizar.setDescricao("Romance Saltless");
+     /*   Query minhaQuery = gerenciadorEntidade.createQuery("select AA from Livro AA where AA.tipo.id = :idTipo " +
+                " and AA.anoPublicacao < :ano ");
+        minhaQuery.setParameter("idTipo", 2);
+        minhaQuery.setParameter("ano", 2000);
+        List<Livro> meusLivros = minhaQuery.getResultList();
+        meusLivros.forEach(livroTeste -> System.out.println(livroTeste));*/
 
-        gerenciadorEntidade.getTransaction().begin();
-        gerenciadorEntidade.persist(tipoAtualizar);
-        gerenciadorEntidade.getTransaction().commit();*/
-
-        /*Tipo tipoAExcluir = gerenciadorEntidade.find(Tipo.class, 3);
-
-        gerenciadorEntidade.getTransaction().begin();
-        gerenciadorEntidade.remove(tipoAExcluir);
-        gerenciadorEntidade.getTransaction().commit();*/
+        Query minhaQuery = gerenciadorEntidade.createQuery("select l from Livro l");
+        minhaQuery.setFirstResult(2);
+        minhaQuery.setMaxResults(2);
+        List<Livro> meusLivros = minhaQuery.getResultList();
+        meusLivros.forEach(livro -> System.out.println(livro));
 
 
-        Tipo tipoCadastrado = gerenciadorEntidade.find(Tipo.class, 2);
-        Livro livro1 = new Livro();
-        livro1.setTitulo("Senhor dos Anéis");
-        livro1.setAutor("J.R.R. Tolkien");
-        livro1.setTipo(tipoCadastrado);
-
-        gerenciadorEntidade.getTransaction().begin();
-        gerenciadorEntidade.persist(livro1);
-        gerenciadorEntidade.getTransaction().commit();
 
         gerenciadorEntidade.close();
         fabricaGerenciadorEntidades.close();
